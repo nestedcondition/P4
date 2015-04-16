@@ -392,8 +392,8 @@ var pizzaElementGenerator = function(i) {
   pizzaContainer.id = "pizza" + i;                // gives each pizza element a unique id
   pizzaImageContainer.classList.add("col-md-6");
 
-  // pizzaImage.src = "images/pizza.png";
-  pizzaImage.src = "images/pizza_smaller.png";
+  pizzaImage.src = "images/pizza.png";
+  // pizzaImage.src = "images/pizza_smaller.png";
   pizzaImage.classList.add("img-responsive");
   pizzaImageContainer.appendChild(pizzaImage);
   pizzaContainer.appendChild(pizzaImageContainer);
@@ -444,11 +444,9 @@ var resizePizzas = function(size) {
   function determineDx (elem, size) {
     var oldwidth = elem.offsetWidth;
     // replace document.querySelector with faster document.getElementById
-    // var windowwidth = document.querySelector("#randomPizzas").offsetWidth;
-    var windowwidth = document.getElementById('randomPizzas').offsetWidth
+    var windowwidth = document.getElementById('randomPizzas').offsetWidth;
     var oldsize = oldwidth / windowwidth;
 
-    // TODO: change to 3 sizes? no more xl?
     // Changes the slider value to a percent width
     function sizeSwitcher (size) {
       switch(size) {
@@ -469,17 +467,14 @@ var resizePizzas = function(size) {
     return dx;
   }
 
-  // replace document.querySelectorAll with faster document.getElementsByClassName
-  // Iterates through pizza elements on the page and changes their widths
-  function changePizzaSizes(size) {
-    var pizzaContainers = document.getElementsByClassName("randomPizzaContainer");
-    var len = pizzaContainers.length;
-    // moved these calculations out of the below for loop since all pizzaContainers have the same size
-    var newwidth = (pizzaContainers[0].offsetWidth + dx) + 'px';
-    var dx = determineDx(pizzaContainers[0], size);
 
-    for (var i = 0; i < len; i++) {
-      pizzaContainers[i].style.width = newwidth;
+  // Iterates through pizza elements on the page and changes their widths
+  // replaced document.querySelectorAll with faster document.getElementsByClassName
+  function changePizzaSizes(size) {
+    for (var i = 0; i < document.getElementsByClassName(".randomPizzaContainer").length; i++) {
+    var dx = determineDx(document.getElementsByClassName(".randomPizzaContainer")[i], size);
+      var newwidth = (document.getElementsByClassName(".randomPizzaContainer")[i].offsetWidth + dx) + 'px';
+      document.getElementsByClassName(".randomPizzaContainer")[i].style.width = newwidth;
     }
   }
 
@@ -490,7 +485,7 @@ var resizePizzas = function(size) {
   window.performance.measure("measure_pizza_resize", "mark_start_resize", "mark_end_resize");
   var timeToResize = window.performance.getEntriesByName("measure_pizza_resize");
   console.log("Time to resize pizzas: " + timeToResize[0].duration + "ms");
-};
+}; // resizePizzas
 
 window.performance.mark("mark_start_generating"); // collect timing data
 
@@ -523,7 +518,6 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 
 // The following code for sliding background pizzas was pulled from Ilya's demo found at:
 // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
-
 // replace document.querySelectorAll with faster document.getElementsByClassName
 // moved document.getElementsByClassName outside of function
 var items = document.getElementsByClassName('mover');
@@ -538,7 +532,6 @@ function updatePositions() {
   for (var i = 0; i < len; i++) {
     var j = i % 5;
     // the below calculation repeats, so only do it the first five times
-    // var phase = Math.sin ( (document.body.scrollTop / 1250) + (i % 5) );
     if ( phases[j] === null) {
         phases[j] =Math.sin ( (document.body.scrollTop / 1250) + (j) );
     }
@@ -570,8 +563,8 @@ document.addEventListener('DOMContentLoaded', function() {
   for (var i = 0; i < numPizzas; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
-    // elem.src = "images/pizza.png";
-    elem.src = "images/pizza_smaller.png";
+    elem.src = "images/pizza.png";
+    // elem.src = "images/pizza_smaller.png";
     elem.style.height = "100px";
     elem.style.width = "73.333px";
     elem.basicLeft = (i % cols) * s;
