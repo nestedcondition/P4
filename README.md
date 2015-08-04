@@ -1,6 +1,6 @@
 ## Website Performance Optimization portfolio project
 
-The challenge was to optimize this (https://github.com/udacity/frontend-nanodegree-mobile-portfolio) online portfolio for speed! Challenge accepted. In particular, I optimized the critical rendering path and made this page render as quickly as possible by applying the techniques I picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
+The challenge was to optimize this (https://github.com/udacity/frontend-nanodegree-mobile-portfolio) online portfolio for speed. Challenge accepted! In particular, I optimized the critical rendering path and made this page render as quickly as possible by applying the techniques I picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
 
 # Optimizations
 - replace document.querySelector with faster document.getElementById and document.getElementsByClassName
